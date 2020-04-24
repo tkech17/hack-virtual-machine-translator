@@ -1,9 +1,8 @@
 package main
 
 import (
-	"fmt"
-	"github.com/tkech17/hach_virtual_machine_translator/vm"
 	"github.com/tkech17/hach_virtual_machine_translator/utils/files"
+	"github.com/tkech17/hach_virtual_machine_translator/vm"
 	"log"
 	"os"
 	"strings"
@@ -21,7 +20,6 @@ func main() {
 		targetContent := translator.GenerateAssembly(content)
 		files.SaveContent(targetFileName, targetContent)
 	}
-	fmt.Println(fileNameContents)
 }
 
 func getTargetFileName(fileName string) string {
