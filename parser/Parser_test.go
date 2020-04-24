@@ -8,7 +8,7 @@ import (
 
 func TestParse(t *testing.T) {
 	var str = "" +
-		"// This file is part of www.nand2tetris.org\n" +
+		"// This files is part of www.nand2tetris.org\n" +
 		"// and the book \"The Elements of Computing Systems\"\n" +
 		"// by Nisan and Schocken, MIT Press.\n" +
 		"       // File name: projects/06/add/Add.asm\n" +
