@@ -15,7 +15,7 @@ type VirtualMachine interface {
 
 func main() {
 	var translator VirtualMachine = vm.GetVirtualMachine()
-	var fileNameContents map[string]string = getFileNameAndContents()
+	var fileNameContents = getFileNameAndContents()
 	for fileName, content := range fileNameContents {
 		targetFileName := getTargetFileName(fileName)
 		targetContent := translator.GenerateAssembly(content)
