@@ -1,7 +1,8 @@
-package parser_test
+package parsers_test
 
 import (
-	"github.com/tkech17/hach_virtual_machine_translator/parser"
+	"github.com/tkech17/hach_virtual_machine_translator/parsers"
+	"github.com/tkech17/hach_virtual_machine_translator/stacktables"
 	"github.com/tkech17/hach_virtual_machine_translator/utils/tests"
 	"testing"
 )
@@ -15,29 +16,23 @@ func TestParse(t *testing.T) {
 		"  \n" +
 		"  // Computes R0 = 2 + 3  (R0 refers to RAM[0])\n" +
 		"\n" +
-		"@2 //ბლა\n" +
-		"D =   A \n" +
-		"  @3  \n" +
-		"    D=D+A\n" +
-		"@temp\n" +
-		"M   =  D\n"
+		"push constant 7\n" +
+		"push constant 8\n" +
+		"add\n"
 
 	var expectedLines = []string{
-		"@2",
-		"D=A",
-		"@3",
-		"D=D+A",
-		"@temp",
-		"M=D",
+		"push constant 7",
+		"push constant 8",
+		"add",
 	}
 
-	result := parser.New()
-	result.Parse(str)
+	parser := parsers.New()
+	result := parser.Parse(str, stacktables.New(""))
 
-	tests.AssertEqualsInt(t, len(result.AssemblyLines), len(expectedLines))
+	tests.AssertEqualsInt(t, len(result), len(expectedLines))
 	for i := range expectedLines {
 		expected := expectedLines[i]
-		actual := result.AssemblyLines[i]
+		actual := result[i]
 		tests.AssertEqualsString(t, expected, actual)
 	}
 }

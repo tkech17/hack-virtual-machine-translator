@@ -9,15 +9,15 @@ import (
 )
 
 type VirtualMachine interface {
-	GenerateAssembly(vmContent string) string
+	GenerateAssembly(fileName string, content string) string
 }
 
 func main() {
 	var translator VirtualMachine = vm.GetVirtualMachine()
 	var fileNameContents = getFileNameAndContents()
-	for fileName, content := range fileNameContents {
-		targetFileName := getTargetFileName(fileName)
-		targetContent := translator.GenerateAssembly(content)
+	for fullFileName, content := range fileNameContents {
+		targetFileName := getTargetFileName(fullFileName)
+		targetContent := translator.GenerateAssembly(files.GetFileName(fullFileName), content)
 		files.SaveContent(targetFileName, targetContent)
 	}
 }
@@ -35,7 +35,7 @@ func getFileNameAndContents() map[string]string {
 	if files.IsDir(path) {
 		filesArray = files.GetFilesFromFolderWithSuffix(path, ".vm")
 	} else {
-		if !strings.HasSuffix(path,".vm") {
+		if !strings.HasSuffix(path, ".vm") {
 			log.Fatal("file suffix must be .vm")
 		}
 		content := files.ReadFile(path)

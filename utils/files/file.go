@@ -7,7 +7,7 @@ import (
 )
 
 func IsDir(path string) bool {
-	if path[len(path) - 1] == '/' || strings.LastIndex(path, ".") == -1  {
+	if path[len(path)-1] == '/' || strings.LastIndex(path, ".") == -1 {
 		return true
 	}
 	return false
@@ -39,6 +39,14 @@ func ReadFile(fileName string) string {
 	return string(content)
 }
 
-func SaveContent(fileName string, content string)  {
+func SaveContent(fileName string, content string) {
 	//TODO save
+}
+func GetFileName(fullFileName string) string {
+	indexOfLastSlash := strings.LastIndex(fullFileName, "/")
+	if indexOfLastSlash == -1 {
+		return fullFileName
+	} else {
+		return fullFileName[indexOfLastSlash+1:]
+	}
 }
