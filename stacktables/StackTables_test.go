@@ -13,6 +13,7 @@ type StackCommander interface {
 	IsMemoryAccessCommand(command string) bool
 	IsArithmeticCommand(command string) bool
 	IsLogicalCommand(command string) bool
+	IsBranchingCommand(command string) bool
 	GetJumpSequenceAndInc() int
 }
 
@@ -65,6 +66,13 @@ func TestStackCommander_IsLogicalCommand(t *testing.T) {
 
 	tests.AssertTrue(t, stackCommander.IsLogicalCommand("not"), "not is logical command")
 	tests.AssertFalse(t, stackCommander.IsLogicalCommand("add"), "add is not logical command")
+}
+
+func TestStackCommander_IsBranchingCommand(t *testing.T) {
+	var stackCommander StackCommander = stacktables.New("bla")
+
+	tests.AssertTrue(t, stackCommander.IsBranchingCommand("goto"), "goto is branching command")
+	tests.AssertFalse(t, stackCommander.IsBranchingCommand("add"), "add is not branching command")
 }
 
 func TestStackCommander_GetJumpSequenceAndInc(t *testing.T) {

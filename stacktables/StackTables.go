@@ -148,6 +148,14 @@ func (s *StackCommander) IsLogicalCommand(command string) bool {
 	return contains(s.logicalCommands, command)
 }
 
+func (s *StackCommander) IsBranchingCommand(command string) bool {
+	return contains(s.branchingCommands, command)
+}
+
+func (s *StackCommander) IsTemp(pointer string) bool {
+	return contains([]string{"R13, R14, R15"}, pointer)
+}
+
 func contains(elements []string, elem string) bool {
 	for _, listElem := range elements {
 		if elem == listElem {

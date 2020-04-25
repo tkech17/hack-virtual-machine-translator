@@ -1,4 +1,3 @@
-// FibonacciSeries: push argument 1
 @1
 D=A
 @ARG
@@ -10,7 +9,6 @@ M=D
 @SP
 M=M+1
 
-// FibonacciSeries: pop pointer 1
 @1
 D=A
 @R3
@@ -25,7 +23,6 @@ D=M
 A=M
 M=D
 
-// FibonacciSeries: push constant 0
 @0
 D=A
 @SP
@@ -34,7 +31,6 @@ M=D
 @SP
 M=M+1
 
-// FibonacciSeries: pop that 0
 @0
 D=A
 @THAT
@@ -49,7 +45,6 @@ D=M
 A=M
 M=D
 
-// FibonacciSeries: push constant 1
 @1
 D=A
 @SP
@@ -58,7 +53,6 @@ M=D
 @SP
 M=M+1
 
-// FibonacciSeries: pop that 1
 @1
 D=A
 @THAT
@@ -73,7 +67,6 @@ D=M
 A=M
 M=D
 
-// FibonacciSeries: push argument 0
 @0
 D=A
 @ARG
@@ -85,7 +78,6 @@ M=D
 @SP
 M=M+1
 
-// FibonacciSeries: push constant 2
 @2
 D=A
 @SP
@@ -94,7 +86,6 @@ M=D
 @SP
 M=M+1
 
-// FibonacciSeries: sub
 @SP
 M=M-1
 A=M
@@ -102,7 +93,6 @@ D=M
 A=A-1
 M=M-D
 
-// FibonacciSeries: pop argument 0
 @0
 D=A
 @ARG
@@ -117,9 +107,8 @@ D=M
 A=M
 M=D
 
-(FibonacciSeries$MAIN_LOOP_START)
+(FibonacciSeries.vm-_-MAIN_LOOP_START)
 
-// FibonacciSeries: push argument 0
 @0
 D=A
 @ARG
@@ -135,15 +124,14 @@ M=M+1
 M=M-1
 A=M
 D=M
-@FibonacciSeries$COMPUTE_ELEMENT
-D;JNE // if-goto
+@FibonacciSeries.vm-_-COMPUTE_ELEMENT
+D;JNE
 
-@FibonacciSeries$END_PROGRAM
-0;JMP // goto
+@FibonacciSeries.vm-_-END_PROGRAM
+0;JMP
 
-(FibonacciSeries$COMPUTE_ELEMENT)
+(FibonacciSeries.vm-_-COMPUTE_ELEMENT)
 
-// FibonacciSeries: push that 0
 @0
 D=A
 @THAT
@@ -155,7 +143,6 @@ M=D
 @SP
 M=M+1
 
-// FibonacciSeries: push that 1
 @1
 D=A
 @THAT
@@ -167,7 +154,6 @@ M=D
 @SP
 M=M+1
 
-// FibonacciSeries: add
 @SP
 M=M-1
 A=M
@@ -175,7 +161,6 @@ D=M
 A=A-1
 M=D+M
 
-// FibonacciSeries: pop that 2
 @2
 D=A
 @THAT
@@ -190,7 +175,6 @@ D=M
 A=M
 M=D
 
-// FibonacciSeries: push pointer 1
 @1
 D=A
 @R3
@@ -202,7 +186,6 @@ M=D
 @SP
 M=M+1
 
-// FibonacciSeries: push constant 1
 @1
 D=A
 @SP
@@ -211,7 +194,6 @@ M=D
 @SP
 M=M+1
 
-// FibonacciSeries: add
 @SP
 M=M-1
 A=M
@@ -219,7 +201,6 @@ D=M
 A=A-1
 M=D+M
 
-// FibonacciSeries: pop pointer 1
 @1
 D=A
 @R3
@@ -234,7 +215,6 @@ D=M
 A=M
 M=D
 
-// FibonacciSeries: push argument 0
 @0
 D=A
 @ARG
@@ -246,7 +226,6 @@ M=D
 @SP
 M=M+1
 
-// FibonacciSeries: push constant 1
 @1
 D=A
 @SP
@@ -255,7 +234,6 @@ M=D
 @SP
 M=M+1
 
-// FibonacciSeries: sub
 @SP
 M=M-1
 A=M
@@ -263,7 +241,6 @@ D=M
 A=A-1
 M=M-D
 
-// FibonacciSeries: pop argument 0
 @0
 D=A
 @ARG
@@ -278,7 +255,8 @@ D=M
 A=M
 M=D
 
-@FibonacciSeries$MAIN_LOOP_START
-0;JMP // goto
+@FibonacciSeries.vm-_-MAIN_LOOP_START
+0;JMP
 
-(FibonacciSeries$END_PROGRAM)
+(FibonacciSeries.vm-_-END_PROGRAM)
+

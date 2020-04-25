@@ -14,12 +14,25 @@ func New() *ParseResult {
 }
 
 func (p *ParseResult) Parse(content string, commander *stacktables.StackCommander) []string {
-	result := strings.Split(content, "\n")
+	nonMultiLinedContent := multiLineCommentsRemovedContent(content)
+	result := strings.Split(nonMultiLinedContent, "\n")
 	result = functional.MapString(result, removeCommentLine)
 	result = functional.MapString(result, strings.TrimSpace)
 	return functional.Filter(result, func(elem string) bool {
 		return commander.StartsWithCommand(elem)
 	})
+}
+
+func multiLineCommentsRemovedContent(content string) string {
+	for true {
+		start := strings.Index(content, "{")
+		end := strings.Index(content, "}")
+		if start == -1 {
+			break
+		}
+		content = content[:start] + content[end+1:]
+	}
+	return content
 }
 
 func removeCommentLine(str string) string {
