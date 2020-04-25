@@ -15,6 +15,7 @@ type StackCommander struct {
 	symbolsTable         map[string]string
 	FileName             string
 	jumpSequence         int
+	returnSequence       int
 }
 
 func New(fileName string) *StackCommander {
@@ -28,12 +29,19 @@ func New(fileName string) *StackCommander {
 		getSymbolsTable(),
 		fileName,
 		0,
+		0,
 	}
 }
 
 func (s *StackCommander) GetJumpSequenceAndInc() int {
 	nextIndex := s.jumpSequence
 	s.jumpSequence++
+	return nextIndex
+}
+
+func (s *StackCommander) GetReturnSequenceAndInc() int {
+	nextIndex := s.returnSequence
+	s.returnSequence++
 	return nextIndex
 }
 
@@ -152,8 +160,12 @@ func (s *StackCommander) IsBranchingCommand(command string) bool {
 	return contains(s.branchingCommands, command)
 }
 
+func (s *StackCommander) IsFunctionCommand(command string) bool {
+	return contains(s.functionCommands, command)
+}
+
 func (s *StackCommander) IsTemp(pointer string) bool {
-	return contains([]string{"R13, R14, R15"}, pointer)
+	return contains([]string{"R13", "R14", "R15"}, pointer)
 }
 
 func contains(elements []string, elem string) bool {

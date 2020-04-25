@@ -21,9 +21,6 @@ func Test_main(t *testing.T) {
 	var translator VirtualMachine = vm.GetVirtualMachine()
 	var fileNameContents = getFileNameAndContents()
 	for fullFileName, content := range fileNameContents {
-		if !strings.HasSuffix(fullFileName, "FibonacciSeries.vm") {
-			continue
-		}
 		targetFileName := getTargetFileName(fullFileName)
 		targetContent := translator.GenerateAssembly(files.GetFileName(fullFileName), content)
 		files.SaveContent(targetFileName, targetContent)

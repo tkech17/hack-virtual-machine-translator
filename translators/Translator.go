@@ -37,6 +37,8 @@ func translateVMLineIntoAssembly(t *Translator, commander *stacktables.StackComm
 		result = t.GetMemoryAccessAssemblyCode(args, commander)
 	} else if commander.IsBranchingCommand(command) {
 		result = t.GetBranchingAssemblyCode(args, commander)
+	} else if commander.IsFunctionCommand(command) {
+		result = t.GetBranchingAssemblyCode(args, commander)
 	} else {
 		panic("not defined command")
 	}

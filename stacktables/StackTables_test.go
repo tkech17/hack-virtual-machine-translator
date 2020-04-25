@@ -14,7 +14,10 @@ type StackCommander interface {
 	IsArithmeticCommand(command string) bool
 	IsLogicalCommand(command string) bool
 	IsBranchingCommand(command string) bool
+	IsFunctionCommand(command string) bool
 	GetJumpSequenceAndInc() int
+	GetReturnSequenceAndInc() int
+	IsTemp(pointer string) bool
 }
 
 func TestNew(t *testing.T) {
@@ -75,13 +78,36 @@ func TestStackCommander_IsBranchingCommand(t *testing.T) {
 	tests.AssertFalse(t, stackCommander.IsBranchingCommand("add"), "add is not branching command")
 }
 
+func TestStackCommander_IsFunctionCommand(t *testing.T) {
+	var stackCommander StackCommander = stacktables.New("bla")
+
+	tests.AssertTrue(t, stackCommander.IsFunctionCommand("return"), "return is function command")
+	tests.AssertFalse(t, stackCommander.IsFunctionCommand("add"), "add is not function command")
+}
+
 func TestStackCommander_GetJumpSequenceAndInc(t *testing.T) {
 	var stackCommander StackCommander = stacktables.New("bla")
 
-	tests.AssertEqualsInt(t, 0, int(stackCommander.GetJumpSequenceAndInc()))
-	tests.AssertEqualsInt(t, 1, int(stackCommander.GetJumpSequenceAndInc()))
+	tests.AssertEqualsInt(t, 0, stackCommander.GetJumpSequenceAndInc())
+	tests.AssertEqualsInt(t, 1, stackCommander.GetJumpSequenceAndInc())
+}
+
+func TestStackCommander_GetReturnSequenceAndInc(t *testing.T) {
+	var stackCommander StackCommander = stacktables.New("bla")
+
+	tests.AssertEqualsInt(t, 0, stackCommander.GetReturnSequenceAndInc())
+	tests.AssertEqualsInt(t, 1, stackCommander.GetReturnSequenceAndInc())
 }
 
 func TestStackCommander_FileName(t *testing.T) {
 	tests.AssertEqualsString(t, "bla", stacktables.New("bla").FileName)
+}
+
+func TestStackCommander_IsTemp(t *testing.T) {
+	var stackCommander StackCommander = stacktables.New("bla")
+
+	tests.AssertTrue(t, stackCommander.IsTemp("R13"), "R13 is temp")
+	tests.AssertTrue(t, stackCommander.IsTemp("R14"), "R14 is temp")
+	tests.AssertTrue(t, stackCommander.IsTemp("R15"), "R15 is temp")
+	tests.AssertFalse(t, stackCommander.IsTemp("R12"), "R12 is not temp")
 }
