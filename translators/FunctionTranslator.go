@@ -51,13 +51,13 @@ func copyPointer(dest string, src string, steps int) string {
 		steps *= -1
 	}
 	result += "D=M\n"
-	result += "@" + string(steps) + "\n"
+	result += "@" + strconv.Itoa(steps) + "\n"
 	result += "A=D" + op + "A\n"
 	result += "D=M\n"
 
 	result += "@" + dest + "\n" +
 		"M=D\n"
-	return result
+	return result + "\n"
 }
 
 func copyValue(dest string, src string, steps int) string {
@@ -72,7 +72,7 @@ func copyValue(dest string, src string, steps int) string {
 			op = "-"
 			steps *= -1
 		}
-		result += "@" + string(steps) + "\n"
+		result += "@" + strconv.Itoa(steps) + "\n"
 		result += "D=D" + op + "A\n"
 	}
 	result += "@" + dest + "\n" +
@@ -88,7 +88,7 @@ func call(args []string, commander *stacktables.StackCommander) string {
 		log.Fatal(argc + " must be int")
 	}
 	returnIndex := commander.GetReturnSequenceAndInc()
-	returnLabel := commander.FileName + "_-_return" + string(returnIndex)
+	returnLabel := commander.FileName + "_-_return" + strconv.Itoa(returnIndex)
 	result += push([]string{"push", "constant", returnLabel}, commander)
 	result += push([]string{"push", "R1", "0"}, commander)
 	result += push([]string{"push", "R2", "0"}, commander)
@@ -114,7 +114,7 @@ func function(args []string, commander *stacktables.StackCommander) string {
 		log.Fatal(argc + " must be int")
 	}
 	for i := 0; i < argcInt; i++ {
-		result += push(args, commander)
+		result += push([]string{"push", "constant", "0"}, commander)
 	}
 	return result
 }

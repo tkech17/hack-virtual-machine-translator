@@ -137,7 +137,11 @@ func (s *StackCommander) GetCommandSymbol(symbol string, index string) string {
 	if symbol == "static" {
 		return s.FileName + "." + index
 	}
-	return s.symbolsTable[symbol]
+	result, exists := s.symbolsTable[symbol]
+	if !exists {
+		result = symbol
+	}
+	return result
 }
 
 func (s *StackCommander) IsRegister(segment string) bool {
