@@ -29,7 +29,11 @@ func Test_main(t *testing.T) {
 }
 
 func getTargetFileName(fileName string) string {
-	return strings.Replace(fileName, ".vm", ".asm", 1)
+	lastSlashIndex := strings.LastIndex(fileName, "/")
+	folder := fileName[:lastSlashIndex]
+	lastSlashIndex = strings.LastIndex(folder, "/")
+	folderName := folder[lastSlashIndex+1:]
+	return folder + "/" + folderName + ".asm"
 }
 
 func getFileNameAndContents() map[string]string {
