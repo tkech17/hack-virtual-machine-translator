@@ -32,13 +32,13 @@ func AssertEqualsString(t *testing.T, expected string, actual string) {
 	}
 }
 func AssertNull(t *testing.T, value interface{}) {
-	if isNull(value) {
+	if !isNull(value) {
 		t.Fatal("Should Be Null")
 	}
 }
 
 func AssertNotNull(t *testing.T, value interface{}) {
-	if !isNull(value) {
+	if isNull(value) {
 		t.Fatal("Should Not Be Null")
 	}
 }

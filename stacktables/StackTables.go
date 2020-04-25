@@ -6,30 +6,59 @@ import (
 )
 
 type StackCommander struct {
-	arithmeticLogicalCommands []string
-	memoryAccessCommands      []string
-	branchingCommands         []string
-	functionCommands          []string
-	registers                 []string
-	fileName                  string
+	arithmeticCommands   []string
+	logicalCommands      []string
+	memoryAccessCommands []string
+	branchingCommands    []string
+	functionCommands     []string
+	registers            []string
+	symbolsTable         map[string]string
+	FileName             string
+	jumpSequence         int
 }
 
 func New(fileName string) *StackCommander {
 	return &StackCommander{
-		getArithmeticLogicalCommands(),
+		getArithmeticCommands(),
+		getLogicalCommands(),
 		getMemoryAccessCommands(),
 		getBranchingCommands(),
 		getFunctionCommands(),
 		getRegisters(),
+		getSymbolsTable(),
 		fileName,
+		0,
 	}
 }
 
-func getArithmeticLogicalCommands() []string {
+func (s *StackCommander) GetJumpSequenceAndInc() int {
+	nextIndex := s.jumpSequence
+	s.jumpSequence++
+	return nextIndex
+}
+
+func getSymbolsTable() map[string]string {
+	return map[string]string{
+		"local":    "LCL",
+		"constant": "constant",
+		"argument": "ARG",
+		"this":     "THIS",
+		"that":     "THAT",
+		"temp":     "R5",
+		"pointer":  "R3",
+	}
+}
+
+func getArithmeticCommands() []string {
 	return []string{
 		"add",
 		"sub",
 		"neg",
+	}
+}
+
+func getLogicalCommands() []string {
+	return []string{
 		"eq",
 		"gt",
 		"lt",
@@ -71,18 +100,21 @@ func getRegisters() []string {
 	return result
 }
 
-func (t *StackCommander) StartsWithCommand(line string) bool {
+func (s *StackCommander) StartsWithCommand(line string) bool {
 	var allCommands []string
-	for _, command := range t.arithmeticLogicalCommands {
+	for _, command := range s.arithmeticCommands {
 		allCommands = append(allCommands, command)
 	}
-	for _, command := range t.memoryAccessCommands {
+	for _, command := range s.logicalCommands {
 		allCommands = append(allCommands, command)
 	}
-	for _, command := range t.branchingCommands {
+	for _, command := range s.memoryAccessCommands {
 		allCommands = append(allCommands, command)
 	}
-	for _, command := range t.functionCommands {
+	for _, command := range s.branchingCommands {
+		allCommands = append(allCommands, command)
+	}
+	for _, command := range s.functionCommands {
 		allCommands = append(allCommands, command)
 	}
 	for _, command := range allCommands {
@@ -93,16 +125,32 @@ func (t *StackCommander) StartsWithCommand(line string) bool {
 	return false
 }
 
-func (t *StackCommander) GetCommandSymbol(symbol string, index string) string {
+func (s *StackCommander) GetCommandSymbol(symbol string, index string) string {
 	if symbol == "static" {
-		return t.fileName + "." + index
+		return s.FileName + "." + index
 	}
-	return symbol
+	return s.symbolsTable[symbol]
 }
 
-func (t *StackCommander) IsRegister(segment string) bool {
-	for _, register := range t.registers {
-		if segment == register {
+func (s *StackCommander) IsRegister(segment string) bool {
+	return contains(s.registers, segment)
+}
+
+func (s *StackCommander) IsMemoryAccessCommand(command string) bool {
+	return contains(s.memoryAccessCommands, command)
+}
+
+func (s *StackCommander) IsArithmeticCommand(command string) bool {
+	return contains(s.arithmeticCommands, command)
+}
+
+func (s *StackCommander) IsLogicalCommand(command string) bool {
+	return contains(s.logicalCommands, command)
+}
+
+func contains(elements []string, elem string) bool {
+	for _, listElem := range elements {
+		if elem == listElem {
 			return true
 		}
 	}

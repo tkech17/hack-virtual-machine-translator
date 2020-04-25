@@ -40,7 +40,10 @@ func ReadFile(fileName string) string {
 }
 
 func SaveContent(fileName string, content string) {
-	//TODO save
+	err := ioutil.WriteFile(fileName, []byte(content), 0644)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 func GetFileName(fullFileName string) string {
 	indexOfLastSlash := strings.LastIndex(fullFileName, "/")

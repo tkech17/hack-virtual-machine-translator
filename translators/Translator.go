@@ -1,4 +1,4 @@
-package translator
+package translators
 
 import (
 	"github.com/tkech17/hach_virtual_machine_translator/stacktables"
@@ -6,7 +6,8 @@ import (
 )
 
 type Translator struct {
-	ArithmeticLogicalTranslator
+	ArithmeticTranslator
+	LogicalTranslator
 	BranchingTranslator
 	MemoryAccessTranslator
 	FunctionTranslator
@@ -28,13 +29,12 @@ func (t *Translator) TranslateVMCodeIntoAssembly(lines []string, commander *stac
 func translateVMLineIntoAssembly(t *Translator, commander *stacktables.StackCommander, args []string) string {
 	command := args[0]
 	var result string
-	switch command {
-	case "Push":
-		result = t.Push(args, commander)
-	case "pop":
-		result = t.Pop(args, commander)
-	default:
-		panic("bla")
+	if commander.IsArithmeticCommand(command) {
+		result = t.GetArithmeticAssemblyCode(args, commander)
+	} else if commander.IsLogicalCommand(command) {
+		result = t.GetLogicalAssemblyCode(args, commander)
+	} else if commander.IsMemoryAccessCommand(command) {
+		result = t.GetMemoryAccessAssemblyCode(args, commander)
 	}
 	return result
 }

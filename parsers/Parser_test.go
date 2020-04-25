@@ -7,6 +7,10 @@ import (
 	"testing"
 )
 
+func TestNew(t *testing.T) {
+	tests.AssertNotNull(t, parsers.New())
+}
+
 func TestParse(t *testing.T) {
 	var str = "" +
 		"// This files is part of www.nand2tetris.org\n" +

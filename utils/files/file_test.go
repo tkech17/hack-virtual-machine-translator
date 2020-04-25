@@ -22,13 +22,13 @@ func TestIsDir_when_IsnOTDirectory(t *testing.T) {
 }
 
 func TestGetFileName_when_IsNotFullFileName(t *testing.T) {
-	fileName := "bla.txt"
+	fileName := "bla.asm"
 	actual := files.GetFileName(fileName)
 	tests.AssertEqualsString(t, fileName, actual)
 }
 
 func TestGetFileName_when_IsFullFileName(t *testing.T) {
-	fileName := "dir/dir2/dir3/bla.txt"
+	fileName := "dir/dir2/dir3/bla.asm"
 	actual := files.GetFileName(fileName)
-	tests.AssertEqualsString(t, "bla.txt", actual)
+	tests.AssertEqualsString(t, "bla.asm", actual)
 }

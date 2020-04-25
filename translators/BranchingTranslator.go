@@ -1,4 +1,4 @@
-package translator
+package translators
 
 type BranchingTranslator struct {
 }
