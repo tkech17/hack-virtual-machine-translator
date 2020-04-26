@@ -18,7 +18,7 @@ func main() {
 	var path = os.Args[1]
 	var translator VirtualMachine = vm.GetVirtualMachine()
 	var fileNameContents = getFileNameAndContents(path)
-	init := files.IsDir(path)
+	init := files.IsDir(path) && files.CountOfFilesWithSuffix(path, ".vm") > 1
 	var result string
 
 	for fullFileName, content := range fileNameContents {

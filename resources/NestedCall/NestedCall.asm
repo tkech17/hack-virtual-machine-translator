@@ -104,8 +104,6 @@ D=D-A
 M=D
 @SP
 D=M
-@0
-D=D-A
 @LCL
 M=D
 @Sys.main
@@ -351,8 +349,6 @@ D=D-A
 M=D
 @SP
 D=M
-@0
-D=D-A
 @LCL
 M=D
 @Sys.add12
@@ -462,7 +458,6 @@ D=M
 M=D
 @R14
 D=M
-D=M
 @5
 A=D-A
 D=M
@@ -491,7 +486,6 @@ D=D+A
 M=D
 @R14
 D=M
-D=M
 @1
 A=D-A
 D=M
@@ -499,7 +493,6 @@ D=M
 M=D
 
 @R14
-D=M
 D=M
 @2
 A=D-A
@@ -509,7 +502,6 @@ M=D
 
 @R14
 D=M
-D=M
 @3
 A=D-A
 D=M
@@ -517,7 +509,6 @@ D=M
 M=D
 
 @R14
-D=M
 D=M
 @4
 A=D-A
@@ -607,7 +598,6 @@ D=M
 M=D
 @R14
 D=M
-D=M
 @5
 A=D-A
 D=M
@@ -636,7 +626,6 @@ D=D+A
 M=D
 @R14
 D=M
-D=M
 @1
 A=D-A
 D=M
@@ -644,7 +633,6 @@ D=M
 M=D
 
 @R14
-D=M
 D=M
 @2
 A=D-A
@@ -654,7 +642,6 @@ M=D
 
 @R14
 D=M
-D=M
 @3
 A=D-A
 D=M
@@ -662,7 +649,6 @@ D=M
 M=D
 
 @R14
-D=M
 D=M
 @4
 A=D-A

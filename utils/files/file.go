@@ -13,6 +13,21 @@ func IsDir(path string) bool {
 	return false
 }
 
+func CountOfFilesWithSuffix(folder string, suffix string) int {
+	filesArray, err := ioutil.ReadDir(folder)
+	if err != nil {
+		log.Fatal(err)
+	}
+	var count = 0
+	for _, file := range filesArray {
+		fileName := file.Name()
+		if strings.HasSuffix(fileName, suffix) {
+			count++
+		}
+	}
+	return count
+}
+
 func GetFilesFromFolderWithSuffix(folder string, suffix string) map[string]string {
 	filesArray, err := ioutil.ReadDir(folder)
 	if err != nil {
