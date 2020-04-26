@@ -14,6 +14,7 @@ type StackCommander struct {
 	registers            []string
 	symbolsTable         map[string]string
 	FileName             string
+	FunctionName         string
 	jumpSequence         int
 	returnSequence       int
 }
@@ -27,6 +28,7 @@ func New(fileName string) *StackCommander {
 		getFunctionCommands(),
 		getRegisters(),
 		getSymbolsTable(),
+		fileName,
 		fileName,
 		0,
 		0,

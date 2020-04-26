@@ -17,12 +17,28 @@ func New() *Translator {
 	return &Translator{}
 }
 
-func (t *Translator) TranslateVMCodeIntoAssembly(lines []string, commander *stacktables.StackCommander) string {
+func (t *Translator) TranslateVMCodeIntoAssembly(lines []string, commander *stacktables.StackCommander, init bool) string {
 	var result = ""
+	if init {
+		result = initAssembly(t, commander)
+	}
 	for _, line := range lines {
 		args := strings.Split(line, " ")
 		result += translateVMLineIntoAssembly(t, commander, args)
 	}
+	return result
+}
+
+func initAssembly(t *Translator, commander *stacktables.StackCommander) string {
+	var result string
+	result += "@256\n" +
+		"D=A\n" +
+		"@SP\n" +
+		"M=D\n"
+	fileName := commander.FileName
+	commander.FileName = "Sys"
+	result += t.GetFunctionAssemblyCode([]string{"call", "Sys.init", "0"}, commander)
+	commander.FileName = fileName
 	return result
 }
 

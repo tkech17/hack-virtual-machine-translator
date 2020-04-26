@@ -13,10 +13,10 @@ func GetVirtualMachine() *VirtualMachine {
 	return &VirtualMachine{}
 }
 
-func (t *VirtualMachine) GenerateAssembly(fileName string, content string) string {
+func (t *VirtualMachine) GenerateAssembly(fileName string, content string, init bool) string {
 	var stackCommander = stacktables.New(fileName)
 	var parser = parsers.New()
 	var trans = translators.New()
 	vmLines := parser.Parse(content, stackCommander)
-	return trans.TranslateVMCodeIntoAssembly(vmLines, stackCommander)
+	return trans.TranslateVMCodeIntoAssembly(vmLines, stackCommander, init)
 }

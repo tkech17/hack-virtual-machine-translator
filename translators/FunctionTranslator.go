@@ -27,7 +27,7 @@ func (f *FunctionTranslator) GetFunctionAssemblyCode(args []string, commander *s
 
 func returnF(commander *stacktables.StackCommander) string {
 	var result string
-	result += copyValue("R14", "LCL", 666)
+	result += copyValue("R14", "LCL", 0)
 	result += copyPointer("R15", "R14", -5)
 	result += pop([]string{"pop", "argument", "0"}, commander)
 	result += copyValue("SP", "ARG", 1)
@@ -41,8 +41,7 @@ func returnF(commander *stacktables.StackCommander) string {
 
 func copyPointer(dest string, src string, steps int) string {
 	var result string
-	result += "@" + src + "\n" +
-		"D=M\n"
+	result += "@" + src + "\n"
 	var op string
 	if steps > 0 {
 		op = "+"
@@ -64,7 +63,7 @@ func copyValue(dest string, src string, steps int) string {
 	var result string
 	result += "@" + src + "\n" +
 		"D=M\n"
-	if steps != 666 {
+	if steps != 0 {
 		var op string
 		if steps > 0 {
 			op = "+"
@@ -88,7 +87,7 @@ func call(args []string, commander *stacktables.StackCommander) string {
 		log.Fatal(argc + " must be int")
 	}
 	returnIndex := commander.GetReturnSequenceAndInc()
-	returnLabel := commander.FileName + "_-_return" + strconv.Itoa(returnIndex)
+	returnLabel := commander.FunctionName + "_-_return" + strconv.Itoa(returnIndex)
 	result += push([]string{"push", "constant", returnLabel}, commander)
 	result += push([]string{"push", "R1", "0"}, commander)
 	result += push([]string{"push", "R2", "0"}, commander)
@@ -107,8 +106,8 @@ func call(args []string, commander *stacktables.StackCommander) string {
 func function(args []string, commander *stacktables.StackCommander) string {
 	var result string
 	functionName, argc := args[1], args[2] //todo
-	commander.FileName = functionName
-	result += label(commander.FileName)
+	commander.FunctionName = functionName
+	result += label(commander.FunctionName)
 	argcInt, err := strconv.Atoi(argc)
 	if err != nil {
 		log.Fatal(argc + " must be int")

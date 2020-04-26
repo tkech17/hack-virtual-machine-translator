@@ -14,7 +14,7 @@ import (
 const resources = "resources"
 
 type VirtualMachine interface {
-	GenerateAssembly(fileName string, content string) string
+	GenerateAssembly(fileName string, content string, dir bool) string
 }
 
 func Test_main(t *testing.T) {
@@ -22,7 +22,7 @@ func Test_main(t *testing.T) {
 	var fileNameContents = getFileNameAndContents()
 	for fullFileName, content := range fileNameContents {
 		targetFileName := getTargetFileName(fullFileName)
-		targetContent := translator.GenerateAssembly(files.GetFileName(fullFileName), content)
+		targetContent := translator.GenerateAssembly(files.GetFileName(fullFileName), content, false)
 		files.SaveContent(targetFileName, targetContent)
 	}
 	fmt.Println("finish")

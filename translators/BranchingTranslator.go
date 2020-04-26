@@ -9,7 +9,7 @@ type BranchingTranslator struct {
 
 func (b *BranchingTranslator) GetBranchingAssemblyCode(args []string, commander *stacktables.StackCommander) string {
 	var result string
-	command, lbl := args[0], commander.FileName+"-_-"+args[1]
+	command, lbl := args[0], commander.FunctionName+"-_-"+args[1]
 	switch command {
 	case "label":
 		result = label(lbl)
