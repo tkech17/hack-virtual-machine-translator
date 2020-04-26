@@ -19,32 +19,18 @@ func main() {
 	var translator VirtualMachine = vm.GetVirtualMachine()
 	var fileNameContents = getFileNameAndContents(path)
 	init := files.IsDir(path)
-	init2 := files.IsDir(path)
 	var result string
-
-	//var keys []string
-	//for key := range fileNameContents {
-	//	keys = append(keys, key)
-	//}
-	//
-	//for i := len(keys) - 1; i >= 0; i-- {
-	//	fullFileName := keys[i]
-	//	content := fileNameContents[fullFileName]
-	//	targetFileName := getTargetFileName(fullFileName)
-	//	targetContent := translator.GenerateAssembly(files.GetFileName(fullFileName), content, init)
-	//	result += targetContent
-	//	files.SaveContent(targetFileName, targetContent)
-	//	init = false
-	//}
 
 	for fullFileName, content := range fileNameContents {
 		targetFileName := getTargetFileName(fullFileName)
 		targetContent := translator.GenerateAssembly(files.GetFileName(fullFileName), content, init)
 		result += targetContent
-		files.SaveContent(targetFileName, targetContent)
 		init = false
+		if !files.IsDir(path) {
+			files.SaveContent(targetFileName, targetContent)
+		}
 	}
-	if init2 {
+	if files.IsDir(path) {
 		folderName := getFolderName(path)
 		targetFile := path + "/" + folderName + ".asm"
 		files.SaveContent(targetFile, result)
